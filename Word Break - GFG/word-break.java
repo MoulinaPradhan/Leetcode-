@@ -32,25 +32,19 @@ public class GfG
 
 class Sol
 {
-    public static int wordBreak(String A, ArrayList<String> B )
+    public static int wordBreak(String s, ArrayList<String> b )
     {
-        if(B.contains(A)) return 1;
-        if(rec(A, B,0)) return 1;
-      return 0;
-    }
- 
-        public static boolean rec(String A, ArrayList<String> B, int index) {
-            if (index == A.length())
-                return false;
-            
-            String prefix = A.substring(0, index);
-            String suffix = A.substring(index, A.length());
-            if (B.contains(prefix) && B.contains(suffix))
-                return true;
-            else if (B.contains(prefix) && !B.contains(suffix))
-                return rec(suffix, B, 1) || rec(A, B, index+1);
-            else
-                return rec(A, B, index+1);
+        int[] dp=new int[s.length()];
+        for(int i=0;i<dp.length;i++){
+            for(int j=0;j<=i;j++){
+                String word=s.substring(j,i+1);
+                if(b.contains(word))
+                {
+                    dp[i]+=1;
+                }
+            }
+        }
+        return dp[s.length()-1]>0?1:0;
         }
     }
 
