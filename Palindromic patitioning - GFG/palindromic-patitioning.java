@@ -23,50 +23,42 @@ class GFG{
 class Solution{
     static int palindromicPartition(String str)
     {
-        boolean[][]dp=new boolean[str.length()][str.length()];
-       for(int g=0;g<str.length();g++){
-           for(int i=0,j=g;j<str.length();i++,j++){
-               if(g==0){
-                 dp[i][j]=true;  
-               } 
-               else if(g==1){
-                   if(str.charAt(i)==str.charAt(j)){
-                       dp[i][j]=true;
-                   }
-                   else {
-                       dp[i][j]=false;
-                   }
-               }
-               else{
-                   if(str.charAt(i)==str.charAt(j)&&dp[i+1][j-1]==true){
-                       dp[i][j]=true;
-                   }
-                   else {
-                       dp[i][j]=false;
-                   }
-               }
-           }
-       }
-       
-       int strj[]=new int[str.length()];
-       strj[0]=0;
-       for(int j=1;j<strj.length;j++){
-           
-           int min = Integer.MAX_VALUE;
-           if(dp[0][j]) {
-               strj[j]=0;
-           }
-           else{
-           for(int i=j;i>=1;i--){
-               if(dp[i][j]){
-                   if(strj[i-1]<min) {
-                       min=strj[i-1];
-                   }
-               }    
-           }
-           strj[j]=min+1;
-       }
-       }
-       return strj[str.length()-1];
+        int n = str.length();
+        boolean[][] palinIndices = new boolean[n][n];
+        
+        for(int i=0; i<n; i++) {
+            for(int j=i; j<n; j++) {
+                palinIndices[i][j] = isPalin(str, i, j);
+                //System.out.println(String.format("i: %d j: %d value: %s", i, j, palinIndices[i][j]));
+            }
+        }
+        
+        int dp[] = new int[n];
+        
+        for(int i=0; i<n; i++) {
+            if(palinIndices[0][i]) {
+                dp[i] = 0;
+            } else {
+                dp[i] = i;
+                for(int j=i; j>=0; j--) {
+                    if (palinIndices[j][i]) {
+                        dp[i] = Math.min(dp[i], j == 0 ? 0 : dp[j-1]);
+                    }
+                }
+                dp[i]++;
+            }
+            //System.out.println("i: " + i + " dp: " + dp[i]);
+        }
+        
+        return dp[n-1];
+    }
+    
+    static boolean isPalin(String s, int start, int end) {
+        for(int i=start, j=end; i<j; i++, j--) {
+            if (s.charAt(i) != s.charAt(j)) {
+                return false;
+            }
+        }
+        return true;
     }
 }
