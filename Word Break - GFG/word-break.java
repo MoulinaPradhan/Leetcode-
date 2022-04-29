@@ -34,17 +34,16 @@ class Sol
 {
     public static int wordBreak(String s, ArrayList<String> b )
     {
-        int[] dp=new int[s.length()];
-        for(int i=0;i<dp.length;i++){
-            for(int j=0;j<=i;j++){
-                String word=s.substring(j,i+1);
-                if(b.contains(word))
-                {
-                    dp[i]+=1;
-                }
-            }
-        }
-        return dp[s.length()-1]>0?1:0;
+      int dp[] = new int [s.length()];
+      for(int i=0;i<s.length();i++){
+          for(int j=0;j<=i;j++){
+              String word = s.substring(j,i+1);
+             if (b.contains(word)  )  dp[i]++;
+               
+          }
+      }
+      
+      return dp[s.length()-1] >0 ? 1:0;
         }
     }
 
