@@ -29,7 +29,6 @@ class Solution{
         for(int i=0; i<n; i++) {
             for(int j=i; j<n; j++) {
                 palinIndices[i][j] = isPalin(str, i, j);
-                //System.out.println(String.format("i: %d j: %d value: %s", i, j, palinIndices[i][j]));
             }
         }
         
@@ -47,17 +46,18 @@ class Solution{
                 }
                 dp[i]++;
             }
-            //System.out.println("i: " + i + " dp: " + dp[i]);
+      
         }
         
         return dp[n-1];
     }
     
     static boolean isPalin(String s, int start, int end) {
-        for(int i=start, j=end; i<j; i++, j--) {
-            if (s.charAt(i) != s.charAt(j)) {
+     while(start<=end){
+            if (s.charAt(start) != s.charAt(end)) {
                 return false;
             }
+            start++;end--;
         }
         return true;
     }
