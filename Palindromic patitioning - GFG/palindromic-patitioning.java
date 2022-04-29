@@ -23,32 +23,50 @@ class GFG{
 class Solution{
     static int palindromicPartition(String str)
     {
-       int n = str.length();
-        int[][] dp = new int[n][n];
-        for(int g = 0; g < n; g++){
-            for(int i = 0, j = g; i < n && j < n; i++, j++){
-                if(i == j){
-                    dp[i][j] = 0;
-                }
-                else if(g == 1){
-                    dp[i][j] = (str.charAt(i) == str.charAt(j))? 0:1;
-                }
-                else{
-                    if(str.charAt(i) == str.charAt(j) && dp[i+1][j-1] == 0)
-                        dp[i][j] = 0;
-                    else{
-                        int min = Integer.MAX_VALUE;
-                        for(int tempi = i+1, tempj = j-g; tempi < n && tempj < j; tempi++, tempj++){
-                            int num1 = dp[i][tempj];
-                            int num2 = dp[tempi][j];
-                            min = Math.min(min, num1+num2);
-                        }
-                        dp[i][j] = min+1;
-                    }
-                }
-            }
-        }
-        
-        return dp[0][n-1];
+        boolean[][]dp=new boolean[str.length()][str.length()];
+       for(int g=0;g<str.length();g++){
+           for(int i=0,j=g;j<str.length();i++,j++){
+               if(g==0){
+                 dp[i][j]=true;  
+               } 
+               else if(g==1){
+                   if(str.charAt(i)==str.charAt(j)){
+                       dp[i][j]=true;
+                   }
+                   else {
+                       dp[i][j]=false;
+                   }
+               }
+               else{
+                   if(str.charAt(i)==str.charAt(j)&&dp[i+1][j-1]==true){
+                       dp[i][j]=true;
+                   }
+                   else {
+                       dp[i][j]=false;
+                   }
+               }
+           }
+       }
+       
+       int strj[]=new int[str.length()];
+       strj[0]=0;
+       for(int j=1;j<strj.length;j++){
+           
+           int min = Integer.MAX_VALUE;
+           if(dp[0][j]) {
+               strj[j]=0;
+           }
+           else{
+           for(int i=j;i>=1;i--){
+               if(dp[i][j]){
+                   if(strj[i-1]<min) {
+                       min=strj[i-1];
+                   }
+               }    
+           }
+           strj[j]=min+1;
+       }
+       }
+       return strj[str.length()-1];
     }
 }
