@@ -39,9 +39,9 @@ class Solution{
                 dp[i] = 0;
             } else {
                 dp[i] = i;
-                for(int j=i; j>=0; j--) {
+                for(int j=i; j>0; j--) {
                     if (palinIndices[j][i]) {
-                        dp[i] = Math.min(dp[i], j == 0 ? 0 : dp[j-1]);
+                        dp[i] = Math.min(dp[i],  dp[j-1]);
                     }
                 }
                 dp[i]++;
