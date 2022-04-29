@@ -46,31 +46,27 @@ class Solution
     //Function to find the maximum profit and the number of jobs done.
     int[] JobScheduling(Job arr[], int n)
     {
-       int sum=0,jobsdone=0;
-       int deadline[]=new int [n];
-       Arrays.fill(deadline,0);
-       Arrays.sort(arr,(a,b)-> b.profit - a.profit);   
-       for(int i=0;i<n;i++)
-       {
-           int j=0;
-           if(arr[i].deadline<n)
-            j=arr[i].deadline-1;
-           else
-            j=n-1;
-          while(j>=0)
-          {
-              if(deadline[j]==0)
-              {
-              deadline[j]=arr[i].profit;
-              jobsdone++;
-              break;
-              }
-              j--;
-          }
-       }
-       for(int profitt:deadline)
-       sum+=profitt;
-       int ans[]={jobsdone,sum};
-       return ans;
+        int i,j;
+        Arrays.sort(arr,(a,b)->a.profit-b.profit);
+        
+        int[] res= new int[2];
+        
+        int[] tem = new int[101];
+        
+        for(i=n-1;i>=0;i--){
+            
+            for(j=arr[i].deadline;j>0;j--){
+                if(tem[j] == 0){
+                    res[0]++;
+                    res[1] += arr[i].profit;
+                    tem[j] = arr[i].id;
+                    
+                    break;
+                }
+            }    
+        }
+        
+        return res;
     }
 }
+
