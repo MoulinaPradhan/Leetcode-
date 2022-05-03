@@ -1,32 +1,22 @@
 class Solution {
-    public List<List<Integer>> combinationSum2(int[] candidates, int target) {
-      Set<List<Integer>> set = new HashSet<>();
-        List<Integer> current = new ArrayList<>();
-        
-        Arrays.sort(candidates);
-        
-        helper(candidates, target, current, set, 0, 0);
-        
-        return new ArrayList(set);
+ public List<List<Integer>> combinationSum2(int[] cand, int target) {
+    Arrays.sort(cand);
+    List<List<Integer>> res = new ArrayList<List<Integer>>();
+    List<Integer> path = new ArrayList<Integer>();
+ fn(cand, 0, target, path, res);
+    return res;
+}
+void fn(int[] cand, int cur, int target, List<Integer> path, List<List<Integer>> res) {
+    if (target == 0) {
+        res.add(new ArrayList(path));
+        return ;
     }
-    
-    private void helper(int[] candidates, int target, List<Integer> current, Set<List<Integer>> set, int index, int sum) {
-        if (sum > target) return;
-        
-        if (sum == target) {
-            set.add(new ArrayList<Integer>(current));
-            
-            return;
-        }
-        
-        for (int i = index; i < candidates.length; i++) {
-if (i >index && candidates[i] ==candidates[i - 1])
-              continue;
-            
-            current.add(candidates[i]);
-    helper(candidates, target, current, set, i + 1, sum + candidates[i]);
-            current.remove(current.size() - 1);
-            }
-        
+    if (target < 0) return;
+    for (int i = cur; i < cand.length; i++){
+        if (i > cur && cand[i] == cand[i-1]) continue;
+        path.add(path.size(), cand[i]);
+        fn(cand, i+1, target - cand[i], path, res);
+        path.remove(path.size()-1);
     }
+}
 }
