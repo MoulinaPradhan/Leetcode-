@@ -1,22 +1,26 @@
 class Solution {
- public List<List<Integer>> combinationSum2(int[] cand, int target) {
-    Arrays.sort(cand);
-    List<List<Integer>> res = new ArrayList<List<Integer>>();
-    List<Integer> path = new ArrayList<Integer>();
- fn(cand, 0, target, path, res);
-    return res;
-}
-void fn(int[] cand, int cur, int target, List<Integer> path, List<List<Integer>> res) {
-    if (target == 0) {
-        res.add(new ArrayList(path));
-        return ;
+       List<List<Integer>> res = new ArrayList<>();
+    public List<List<Integer>> combinationSum2(int[] candi, int target) {
+        Arrays.sort(candi);
+    if(candi.length ==0) return res;
+        sum(0,0,candi,target,new ArrayList<>());
+        return res;
     }
-    if (target < 0) return;
-    for (int i = cur; i < cand.length; i++){
-        if (i > cur && cand[i] == cand[i-1]) continue;
-        path.add(path.size(), cand[i]);
-        fn(cand, i+1, target - cand[i], path, res);
-        path.remove(path.size()-1);
+    public void sum(int index,int sum,int[] candi, int target,List<Integer> curr){
+           if (sum > target) return;
+        if(sum == target && !res.contains(new ArrayList<>(curr))){
+
+            res.add(new ArrayList<>(curr));
+            return;
+        }
+        for(int i=index;i<candi.length;i++){
+     if (i >index && candi[i] ==candi[i - 1])
+              continue;
+                curr.add(candi[i]);
+                sum(i+1,sum+candi[i],candi,target,curr);
+                curr.remove(curr.size()-1);
+            
+        }
+ 
     }
-}
 }
