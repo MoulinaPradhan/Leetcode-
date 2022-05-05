@@ -33,39 +33,38 @@ class Rat {
 
 // m is the given matrix and n is the order of matrix
 class Solution {
-   public static void helper(int[][] m,int n,String s,ArrayList<String>ans,int row,int col,boolean[][]visited)
-   {
-       //System.out.println(s);
-       if(row==n-1&&col==n-1)
-       {
-           ans.add(s);
-           return;
-       }
-       visited[row][col]=true;
-       int[]x={0,0,1,-1};
-       int[]y={1,-1,0,0};
-       char[]dir={'R','L','D','U'};
-       for(int i=0;i<4;i++)
-       {
-           int row1=row+x[i];
-           int col1=col+y[i];
-           boolean valid=row1>=0&&row1<n&&col1>=0&&col1<n&&!visited[row1][col1]&&m[row1][col1]!=0;
-           if(valid)
-           {
-               helper(m,n,s+dir[i],ans,row1,col1,visited);
-           }
-       }
-       visited[row][col]=false;
-   }
    public static ArrayList<String> findPath(int[][] m, int n) {
-       ArrayList<String>ans=new ArrayList<>();
-       if(m[0][0]==0)
-       {
-           return ans;
-       }
-       boolean[][]visited=new boolean[n][n];
-       String s="";
-       helper(m,n,s,ans,0,0,visited);
-       return ans;
-   }
+        // Your code here
+        ArrayList<String> ans=new ArrayList<String>();
+        if(m[0][0]==0 || m[n-1][n-1]==0){
+           
+            return ans;
+        }
+        
+        dfs(m,n,0,0,"",ans);
+        if(ans.size()==0){
+           
+            return ans;
+        }
+        return ans;
+    }
+    
+    
+    public static void dfs(int[][] m,int n,int x,int y, String path,ArrayList<String> ans){
+        if(x<0 || x>=n || y<0 || y>=n || m[x][y]==0){
+            return;
+        }
+        
+        if(x==n-1 && y==n-1){
+            ans.add(path);
+            return;
+        }
+        m[x][y]=0;
+        dfs(m,n,x+1,y,path+"D",ans);
+        dfs(m,n,x,y-1,path+"L",ans);
+        dfs(m,n,x,y+1,path+"R",ans);
+        dfs(m,n,x-1,y,path+"U",ans);
+        
+        m[x][y]=1;
+    }
 }
