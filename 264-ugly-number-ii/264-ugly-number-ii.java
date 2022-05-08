@@ -1,33 +1,19 @@
 class Solution {
     public int nthUglyNumber(int n) {
-       int[] primes = new int[]{2, 3, 5};
+    int[] uglyNumbers = new int[n];
+    uglyNumbers[0] = 1;
+    int index2 = 0, index3 = 0, index5 = 0;
+    
+    for (int i = 1; i < n; i++) {
+        // generate ugly number by multiply all the factors
+        uglyNumbers[i] = Math.min(uglyNumbers[index2] * 2, Math.min(uglyNumbers[index3] * 3, uglyNumbers[index5] * 5));
         
-        int[] uglyNumber = new int[n];
-        
-        //as given. 
-        uglyNumber[0] = 1;
-        
-        //primeIndex[i]  signyfy that for this prime number, 
-        //which already created ugly we have to select for creating this current ugly number 
-        int[] primeIndex = new int[primes.length];
-
-       
-        for (int i = 1; i < n; i++) {
-            //create current ugly number
-            uglyNumber[i] = Integer.MAX_VALUE;
-            
-            for (int j = 0; j < primes.length; j++){
-                uglyNumber[i] = Math.min(uglyNumber[i], primes[j] * uglyNumber[primeIndex[j]]);
-            }
-
-            //increment prime indexes
-            for (int j = 0; j < primes.length; j++) {
-                if(uglyNumber[i] % primes[j] == 0) {
-                    primeIndex[j]++;
-                }
-            }
-        }
-
-        return uglyNumber[n - 1];
+        // bump up index for the current minimum ugly number 
+        if (uglyNumbers[i] == uglyNumbers[index2] * 2) index2++;
+        if (uglyNumbers[i] == uglyNumbers[index3] * 3) index3++;
+        if (uglyNumbers[i] == uglyNumbers[index5] * 5) index5++;
     }
+    
+    return uglyNumbers[n - 1];
+}
 }
