@@ -1,5 +1,5 @@
 # Find whether path exist
-## Medium 
+##  Medium 
 <div class="problem-statement">
                 <p></p><p><span style="font-size:18px">Given a grid of size n*n&nbsp;filled with 0, 1, 2, 3. Check whether there is a path possible from the source to destination.&nbsp;You can traverse up, down, right and left.<br>
 The description of cells is as follows:</span></p>
