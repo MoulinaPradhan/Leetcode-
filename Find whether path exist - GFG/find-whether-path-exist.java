@@ -33,51 +33,34 @@ class GFG
 
 class Solution
 {
-     public boolean path=false;
-   public boolean is_Possible(int[][] grid)
-   {
-       // Code here
-       int id=0,jd=0,is=0,js=0;
-       
-       for(int i=0;i<grid.length;i++)
-       {
-           for(int j=0;j<grid[i].length;j++)
-           {
-               if(grid[i][j]==1)
-               {
-                   is=i;
-                   js=j;
-               }
-                if(grid[i][j]==2)
-               {
-                   id=i;
-                   jd=j;
-               }
-               
-           }
-       }
-       if(is==id && js==jd)
-       return true;
-       bfs(grid,is,js);
-       return path;
-       
-   }
-   public void bfs(int[][] grid, int is, int js)
-   
-   {
-       
-       if(is<0 || is>=grid.length || js<0 || js>=grid[is].length || grid[is][js]==0)
-       {
-           return;
-       }
-       if(grid[is][js]==2)
-       path=true;
-       grid[is][js]=0;
-       bfs(grid,is+1,js);
-       bfs(grid,is,js+1);
-       bfs(grid,is-1,js);
-       bfs(grid,is,js-1);
-       
-   }
- 
+    public boolean is_Possible(int[][] grid)
+    {
+        int n=grid.length;
+        int m= grid[0].length;
+        boolean[][] v=new boolean[n][m];
+        for(int i=0;i<n;i++){
+            for(int j=0;j<m;j++){
+                if(grid[i][j]==1){
+                    return isPath(grid,i,j,n,m,v);
+                } 
+            }
+        }
+        return false;
+        
+    }
+    public boolean  isPath(int[][] grid, int x,int y,int n, int m,boolean[][] v){
+       if(x>n-1 || y>m-1||x<0||y<0 || grid[x][y]==0||v[x][y]) return false;
+        if(grid[x][y]==2 ) return true;
+        v[x][y]=true;
+        return (( isPath(grid,x+1,y,n,m,v))||
+        (isPath(grid,x,y+1,n,m,v))||
+        (isPath(grid,x-1,y,n,m,v))||
+        (isPath(grid,x,y-1,n,m,v)));
+    }
+    public boolean isSafe(int x,int y,int[][] grid,int n, int m,boolean[][] v){
+      
+        return true;
+    }
+    
+    
 }
