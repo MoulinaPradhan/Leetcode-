@@ -57,10 +57,6 @@ class Solution
         (isPath(grid,x-1,y,n,m,v))||
         (isPath(grid,x,y-1,n,m,v)));
     }
-    // public boolean isSafe(int x,int y,int[][] grid,int n, int m,boolean[][] v){
-      
-    //     return true;
-    // }
     
     
 }
