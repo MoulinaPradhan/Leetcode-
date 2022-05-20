@@ -51,18 +51,18 @@ class GFG {
 //User function Template for Java
 
 class Solution {
-    public List<List<String>> Anagrams(String[] strs) {
-   Map<String,List<String>>map = new HashMap<>();
-        for(String s: strs){
-            char ch[] = s.toCharArray();
-            Arrays.sort(ch);
-            String key = String.valueOf(ch);
-            if(!map.containsKey(key)){
-                map.put(key, new ArrayList<>());
-            }
-                 map.get(key).add(s);
-            
-        }
-        return new ArrayList<>(map.values());
+    public List<List<String>> Anagrams(String[] arr) {
+       Map<String,List<String>>map = new HashMap<>();
+       for(String s:arr){
+           char d[]=s.toCharArray();
+           Arrays.sort(d);
+           String key = String.valueOf(d);
+           if(!map.containsKey(key)){
+               map.put(key,new ArrayList<>());
+           }
+           map.get(key).add(s);
+       }
+    
+         return new ArrayList<>(map.values());
 }
 }
