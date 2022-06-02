@@ -41,7 +41,7 @@ class Solution
         int n=matrix[0].length;
         if(x==m-1&&y==n-1){result[x][y]=1;return true;}
         int k=matrix[x][y];
-        // result[x][y]=1;
+
         for(int i=1;i<=k;i++){
             int x_=x+i;
             int y_=y+i;
@@ -56,12 +56,11 @@ class Solution
             result[x_][y]=0;
             }
         }
-        // result[x][y]=0;
+  
         return false;
     }
     public int[][] ShortestDistance(int[][] matrix)
     {
-        // Code here
         int m=matrix.length;
         int n=matrix[0].length;
         int[][] result=new int[m][n];
