@@ -52,11 +52,8 @@ class Solution {
         {
             sum += 1/(Math.abs(eq-magnets[i]));
         }
-        
-        
+
         return sum;
-        
-        
     }
     
    public static double findEquiPoint(int sp, double magnets[], int n)
