@@ -59,7 +59,7 @@ class Solution {
         
     }
     
-    private static double findEquiPoint(int sp, double magnets[], int n)
+   public static double findEquiPoint(int sp, double magnets[], int n)
     {
         double left = magnets[sp-1];
         double right = magnets[sp];
