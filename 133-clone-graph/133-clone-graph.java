@@ -19,18 +19,16 @@ class Node {
 */
 
 class Solution {
-   
-         private Map<Node, Node> map = new HashMap<>();
+    public Map<Node,Node> map = new HashMap<>();
     public Node cloneGraph(Node node) {
-        if(node == null) return node;
+        if(node==null) return node;
         if(map.containsKey(node)) return map.get(node);
-        Node copy = new Node(node.val);
-        map.put(node, copy);
-        copy.neighbors = new ArrayList<>();
-        for(Node n: node.neighbors) {
+     Node copy = new Node(node.val);
+        map.put(node,copy);
+        copy.neighbors= new ArrayList<>();
+        for(Node n : node.neighbors){
             copy.neighbors.add(cloneGraph(n));
         }
-        
         return copy;
     }
-    }
+}
