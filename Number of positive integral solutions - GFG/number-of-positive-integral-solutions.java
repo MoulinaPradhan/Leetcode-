@@ -1,0 +1,49 @@
+// { Driver Code Starts
+//Initial Template for Java
+
+import java.io.*;
+import java.util.*;
+
+class GfG
+{
+    public static void main(String args[])
+        {
+            Scanner sc = new Scanner(System.in);
+            int t = sc.nextInt();
+            while(t-->0)
+                {
+                    String s = sc.next();
+                    Solution obj = new Solution();
+                    System.out.println(obj.posIntSol(s));
+                }
+                
+        }
+}
+// } Driver Code Ends
+
+
+//User function Template for Java
+
+class Solution
+{
+    long posIntSol(String s)
+    {
+        //code here.
+         int index = s.indexOf("=");
+        int N = Integer.parseInt(s.substring(index+1));
+        int r = 1;
+        for(int i=0;i<s.length();i++){
+            if(s.charAt(i)=='+')r++;
+            if(s.charAt(i)=='=')break;
+        }
+        //Now we have r and N, the total number of (N-1)C(r-1)
+        return func(N-1,r-1);
+    }
+    long func(int N,int r){
+            if(r==0){
+            return 1;
+        }
+        //Recursive case
+        return N*func(N-1,r-1)/r;
+    }
+}
