@@ -1,19 +1,23 @@
 class Solution {
     public boolean isPossible(int[] target) {
-        long s = 0;
-    PriorityQueue<Integer> q = new PriorityQueue<>(Collections.reverseOrder());
-    for (int n : target) {
-        s += n;
-        q.add(n);
-    }        
-    while (s > 1 && q.peek() > s / 2) {
-        int cur = q.poll();
-        s -= cur;
-        if (s <= 1) 
-            return s == 0 ? false : true;
-        q.add(cur % (int)s);
-        s += cur % s;
-    }
-    return s == target.length;
+            PriorityQueue<Integer> queue = new PriorityQueue<>((a,b)-> (b-a));
+        long total = 0;
+        for(int n:target)
+        {
+            total+=n;
+            queue.add(n);
+        }
+        while(!queue.isEmpty())
+        {
+            int a = queue.poll();
+            total-=a;
+            if(a==1 || total==1)
+                return true;
+            if(a<total || total==0 || a%total==0) return false;
+            a%=total;
+            total+=a;
+            queue.add(a);
+        }
+        return true;
     }
 }
