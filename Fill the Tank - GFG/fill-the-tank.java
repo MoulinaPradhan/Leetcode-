@@ -58,7 +58,6 @@ class Solution{
             a.get(e[1]).add(e[0]);
         }
         long y = ch(a, N, S, cap);
-        //System.out.println(y);
         if (p)
         return -1;
         return y>x?-1:y;
