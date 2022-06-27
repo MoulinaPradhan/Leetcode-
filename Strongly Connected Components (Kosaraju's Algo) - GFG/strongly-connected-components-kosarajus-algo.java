@@ -48,53 +48,46 @@ class Solution
     //Function to find number of strongly connected components in the graph.
     public int kosaraju(int V, ArrayList<ArrayList<Integer>> adj)
     {
-       boolean vis[] = new boolean[adj.size()];
-Stack<Integer>st = new Stack<>();
-for(int i=0;i<adj.size();i++){
-	if(!vis[i]){
-		dfs(i, st, adj, vis);
-	}
-}
-ArrayList<ArrayList<Integer> > transpose = new ArrayList<>();
-for(int i=0;i<adj.size();i++){
-	transpose.add(new ArrayList<>());
-}
-
-for(int i=0;i<adj.size();i++){
-	vis[i] = false;
-	for(Integer it :adj.get(i)){
-		transpose.get(it).add(i);
-	}
-}
-int count=0;
-while(!st.isEmpty()){
-	int node = st.pop();
-if(!vis[node]){
-// 	System.out.print("SCC :");
-revDfs(node,transpose,vis);
-count++;
-// System.out.println();
-}
-
-}
-return count;
-	}
-	public static void dfs(int node, Stack<Integer> st,  ArrayList<ArrayList<Integer> > adj,boolean vis[] ){
-vis[node] = true;
-for(int it: adj.get(node)){
-	if(!vis[it])
-	dfs(it, st, adj, vis);
-}
-st.push(node);
-	}
-
-	public static void revDfs( int node, ArrayList<ArrayList<Integer> >transpose, boolean vis[]){
-		vis[node] =true;
-		//System.out.print(node+" ");
-		for(Integer it :transpose.get(node)){
-			if(!vis[it])
-			revDfs(it, transpose, vis);
-	
-		}
-	}
+      int count =0;
+      boolean vis[] = new boolean [V];
+      Stack<Integer> st = new Stack<>();
+      for(int i=0;i<V;i++){
+          if(!vis[i]) dfs(i,vis,adj,st);
+      }
+      
+      ArrayList<ArrayList<Integer>> transpose= new ArrayList<>();
+      for(int i=0;i<V;i++){
+         transpose.add(new ArrayList<>());
+      }
+      for(int i=0;i<V;i++){
+          vis[i] = false;
+          for(Integer it : adj.get(i)){
+              transpose.get(it).add(i);
+          }
+      }
+      while(!st.isEmpty()){
+          int node = st.pop();
+          if(!vis[node]){
+              revDfs(node,vis,transpose);
+              count++;
+          }
+      }
+      return count;
+    }
+    public static void dfs(int node, boolean vis[],ArrayList<ArrayList<Integer>> adj,Stack<Integer> st){
+        vis[node]= true;
+        for(Integer it : adj.get(node)){
+            if(!vis[it])
+            dfs(it, vis, adj,st);
+        }
+        st.push(node);
+    }
+    public static void revDfs(int node, boolean vis[],ArrayList<ArrayList<Integer>> adj){
+        vis[node] = true;
+        for(Integer it : adj.get(node)){
+            if(!vis[it]){
+                revDfs(it,vis,adj);
+            }
+        }
+    }
 }
