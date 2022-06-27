@@ -33,38 +33,32 @@ class Rat {
 
 // m is the given matrix and n is the order of matrix
 class Solution {
-   public static ArrayList<String> findPath(int[][] m, int n) {
-        // Your code here
-        ArrayList<String> ans=new ArrayList<String>();
+    public static ArrayList<String> findPath(int[][] m, int n) {
+
+       ArrayList<String> ans=new ArrayList<String>();
         if(m[0][0]==0 || m[n-1][n-1]==0){
            
             return ans;
         }
         
-        dfs(m,n,0,0,"",ans);
+        dfs(0,0,m,"",ans);
         if(ans.size()==0){
            
             return ans;
         }
         return ans;
     }
-    
-    
-    public static void dfs(int[][] m,int n,int x,int y, String path,ArrayList<String> ans){
-        if(x<0 || x>=n || y<0 || y>=n || m[x][y]==0){
-            return;
-        }
-        
-        if(x==n-1 && y==n-1){
+    public static void dfs(int i, int j, int[][] m, String path,ArrayList<String>ans){
+        if(i <0 || i>=m.length || j<0 || j>=m[i].length || m[i][j] ==0) return ;
+        if(i==m.length-1 && j==m.length-1 ) {
             ans.add(path);
             return;
         }
-        m[x][y]=0;
-        dfs(m,n,x+1,y,path+"D",ans);
-        dfs(m,n,x,y-1,path+"L",ans);
-        dfs(m,n,x,y+1,path+"R",ans);
-        dfs(m,n,x-1,y,path+"U",ans);
-        
-        m[x][y]=1;
+        m[i][j] =0;
+        dfs(i-1, j, m,path+'U',ans);
+          dfs(i+1, j, m,path+'D',ans);
+            dfs(i, j-1, m,path+'L',ans);
+              dfs(i, j+1, m,path+'R',ans);
+              m[i][j]=1;
     }
 }
