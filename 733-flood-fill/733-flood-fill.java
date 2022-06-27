@@ -1,20 +1,16 @@
 class Solution {
-    public int[][] floodFill(int[][] grid, int sr, int sc, int color) {
-        int base = grid[sr][sc];
-        if(grid[sr][sc] == color) return grid;
-        dfs(sr,sc,grid,base,color);
-        return grid;
-    }
-
-    public void dfs(int i, int j, int[][] grid,int base,int color){
-        if(i<0 || i>=grid.length || j<0 || j>=grid[i].length || grid[i][j] !=base ) return ;
-      
-        if(grid[i][j] !=color){
-              grid[i][j] =color;
-            dfs(i-1,j,grid,base,color);
-             dfs(i+1,j,grid,base,color);
-             dfs(i,j-1,grid, base,color);
-             dfs(i,j+1,grid,base,color);
+    int[] DIR = new int[]{0, 1, 0, -1, 0};
+    public int[][] floodFill(int[][] image, int r, int c, int newColor) {
+        if (image[r][c] == newColor) return image; // same color -> no need to replace
+        
+        int m = image.length, n = image[0].length;
+        int oldColor = image[r][c];
+        image[r][c] = newColor; // set new color
+        for (int i = 0; i < 4; i++) {
+            int nr = r + DIR[i], nc = c + DIR[i+1];
+            if (nr < 0 || nr == m || nc < 0 || nc == n || image[nr][nc] != oldColor) continue;
+            floodFill(image, nr, nc, newColor);
         }
+        return image;
     }
 }
