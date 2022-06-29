@@ -4,7 +4,7 @@ public int ladderLength(String beginWord, String endWord, List<String> wordList)
         HashSet<String> set = new HashSet<String>(wordList);
         Queue<String> q = new LinkedList<String>();
         int length = 0;
-        set.add(endWord);
+        // set.add(endWord);
         q.add(beginWord);
         
         while (!q.isEmpty()) {
