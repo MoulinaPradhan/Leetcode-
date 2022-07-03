@@ -38,35 +38,27 @@ class Solution
 {
     public boolean isBipartite(int V, ArrayList<ArrayList<Integer>>adj)
     {
-         int[] colors = new int[V];
-        Arrays.fill(colors, -1);
-        
-        for(int i = 0; i<V; i++){
-            if(colors[i] == -1)
-                if(!bfs(i, adj, colors))
-                    return false;
-        }
-        return true;
+       int color [] = new int [V];
+       Arrays.fill(color,-1);
+       for(int i=0;i<V;i++){
+           if(color[i]==-1){
+               if(!bfs(i,adj,color) ) return false;
+           }
+       }
+       return true;
     }
-    
-    static boolean bfs(int node, ArrayList<ArrayList<Integer>> adj, int[] colors){
+    public static boolean  bfs(int n,ArrayList<ArrayList<Integer>>adj, int color[]){
         Queue<Integer> q = new LinkedList<>();
-        
-        colors[node] = 1;
-        
-        q.add(node);
-        
+        q.add(n);
+        color[n] =1;
         while(!q.isEmpty()){
-            int currNode = q.poll();
-            for(Integer adjNodes : adj.get(currNode)){
-                if(colors[adjNodes] == -1)
-                {
-                    colors[adjNodes] = 1-colors[currNode];
-                    q.add(adjNodes);
-                }
-                else if(colors[adjNodes] == colors[currNode])
-                    return false;
-            }
+        Integer node = q.poll();
+        for(Integer it : adj.get(node)){
+            if(color[it] == -1){
+                q.add(it);
+                color[it] = 1-color[node];
+            }else if (color[it] == color[node]) return false;
+        }
         }
         return true;
     }
