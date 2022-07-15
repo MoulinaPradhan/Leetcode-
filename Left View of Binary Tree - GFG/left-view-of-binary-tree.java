@@ -124,20 +124,17 @@ class Tree
     //Function to return list containing elements of left view of binary tree.
     ArrayList<Integer> leftView(Node root)
     {
-      ArrayList<Integer> res = new ArrayList<>();
-        solve(res, root, 0);
-        return res;
+    ArrayList<Integer> list= new ArrayList<>();
+    solve(root,list,0);
+    return list;
     }
-    
-    
-    void solve(ArrayList<Integer> r, Node n, int level){
-        if(n==null)
-            return ;
-            
-        if(level== r.size())
-            r.add(n.data);
-            solve(r,n.left,level+1);
-        
-        solve(r,n.right,level+1);
+    void solve(Node n, ArrayList<Integer> list , int  level){
+        if(n == null) return ;
+        if(list.size() == level){
+            list.add(n.data);
+        }
+        if(n.left != null)
+        solve(n.left,list,level+1);
+         solve(n.right,list,level+1);
     }
 }
