@@ -14,20 +14,19 @@
  * }
  */
 class Solution {
+    boolean isBal=true;
     public boolean isBalanced(TreeNode root) {
-      return  isBalutil(root) !=-1;
-        
+        isBalutil(root);
+        return isBal;
     }
-     private int isBalutil(TreeNode node){
+    private int isBalutil(TreeNode node){
         if(node==null){
             return 0;
         }
         int lh=isBalutil(node.left);
-         if(lh==-1) return -1;
         int rh=isBalutil(node.right);
-           if(rh==-1) return -1;
         if(Math.abs(lh-rh)>1){
-           return -1;
+            isBal=false;
         }
         return Math.max(lh,rh)+1;
     }
