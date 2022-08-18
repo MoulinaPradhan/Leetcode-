@@ -15,33 +15,21 @@
  */
 class Solution {
     public TreeNode buildTree(int[] preorder, int[] inorder) {
-        
-     HashMap<Integer, Integer> map = new HashMap<>();
-        for (int i = 0; i < inorder.length; ++i) {
-            map.putIfAbsent(inorder[i], i);
-        }
-        return buildTree(preorder, 0, preorder.length - 1, inorder, 0, map);
+     Map<Integer,Integer> map = new HashMap<>();
+    for(int i=0;i< inorder.length;i++){
+        map.put(inorder[i],i);
     }
-
-    public TreeNode buildTree(
-            int[] preorder,
-            int start,
-            int end,
-            int[] inorder,
-            int startInorder,
-            HashMap<Integer, Integer> map
-    ) {
-        if (start > end)
-            return null;
-        TreeNode n = new TreeNode(preorder[start]);
-        if (start == end) {
-            return n;
-        }
-        int index = map.get(preorder[start]);
-        int numLeftNodes = index - startInorder;
+        TreeNode root= build(preorder,0, preorder.length-1,inorder,0,inorder.length-1,map);
+        return root;
+    }
+    public TreeNode build(int[] preorder, int preStart, int preEnd, int [] inorder, int inStart, int inEnd, Map<Integer,Integer>map ){
+        if(preStart > preEnd || inStart > inEnd) return null;
+        TreeNode root = new TreeNode(preorder[preStart]);
+      int inroot = map.get(root.val);
+        int numLeft = inroot - inStart;
         
-        n.left = buildTree(preorder, start + 1, start + numLeftNodes, inorder, startInorder, map);
-        n.right = buildTree(preorder, start + numLeftNodes + 1, end, inorder, index + 1, map);
-        return n;
-	}
-}    
+        root.left = build(preorder,preStart+1,preStart+numLeft, inorder,inStart,inroot-1,map);
+                root.right = build(preorder,preStart+1+numLeft,preEnd, inorder,inroot+1,inEnd,map);
+        return root;
+    }
+}
