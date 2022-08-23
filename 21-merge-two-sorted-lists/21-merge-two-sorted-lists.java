@@ -24,11 +24,11 @@ class Solution {
         }
      if(li1 != null){
             ans.next = li1;
-            // li1= li1.next;
+        
         }
         if(li2 != null){
             ans.next = li2;
-            // li2= li2.next;
+   
         }
         return temp.next;
     }
